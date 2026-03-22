@@ -1,0 +1,16 @@
+Fábrica de Software 26.1
+
+Análise dos dados tratados da Academia RedFit
+
+1. Tipos de Atividade
+O gráfico de barras mostrou que Yoga e Cardio são as atividades mais
+praticadas na academia, enquanto natação tem uma menor preferência. 
+
+2. Alunos Ativos x Sedentários
+O gráfico de pizza revelou que a grande parte dos alunos é classificada
+como ativa, enquanto uma minoria é classificada como sedentária. 
+
+3. Frequência de Treino por Atividade
+O gráfico de colunas mostrou que alunos que praticam crossfiwt e musculação tendem
+a treinar com uma maior frequência semanal. 
+

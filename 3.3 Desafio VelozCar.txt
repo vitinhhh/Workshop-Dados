@@ -1,0 +1,67 @@
+3.3 do Desafio Final VelozCar BDD
+
+1. Consultas (DQL)
+
+a)total de clientes cadastrados:
+SELECT COUNT(*) AS total_clientes FROM Cliente;
+Motivo: saber quantos clientes estão cadastrados na concessionária.
+
+b)valor total de aluguéis por status:
+SELECT status_aluguel, SUM(valor_total) AS total_valor
+FROM Aluguel
+GROUP BY status_aluguel;
+Motivo: verificar a receita total por tipo de aluguel (ativo, concluído, cancelado).
+
+c)quantidade de serviços extras por categoria:
+SELECT categoria, COUNT(*) AS qtd_servicos
+FROM servico_extra
+GROUP BY categoria;
+Motivo: identificar quais categorias de serviços extras são mais oferecidas.
+
+d)valor médio de manutenção por tipo:
+SELECT tipo_manutencao, AVG(valor_manutencao) AS media_valor
+FROM Manutencao
+GROUP BY tipo_manutencao;
+Motivo: saber o custo médio de cada tipo de manutenção.
+
+# join
+
+2. Consultas com JOIN
+
+a)INNER JOIN entre Aluguel e Cliente:
+SELECT A.id_aluguel, C.nome AS cliente, A.valor_total
+FROM Aluguel A
+INNER JOIN Cliente C ON A.id_cliente = C.id_cliente;
+Motivo: relacionar cada aluguel com o cliente correspondente.
+
+b)LEFT JOIN entre Aluguel e Pagamento:
+SELECT A.id_aluguel, P.valor, P.status_pagamento
+FROM Aluguel A
+LEFT JOIN Pagamento P ON A.id_aluguel = P.id_aluguel;
+Motivo: listar todos os aluguéis, mesmo os que ainda não tiveram pagamento.
+
+c)INNER JOIN entre Aluguel, Aluguel_Servico e Servico_Extra:
+SELECT A.id_aluguel, S.nome AS servico, ASV.quantidade, ASV.valor_aplicado
+FROM Aluguel A
+INNER JOIN aluguel_servico ASV ON A.id_aluguel = ASV.id_aluguel
+INNER JOIN servico_extra S ON ASV.id_servico = S.id_servico;
+Motivo: mostrar os serviços extras aplicados a cada aluguel.
+
+d) LEFT JOIN entre Veículo e Manutenção:
+SELECT V.id_veiculo, V.modelo, M.descricao, M.status_manutencao
+FROM Veiculo V
+LEFT JOIN Manutencao M ON V.id_veiculo = M.id_veiculo;
+Motivo: listar todos os veículos e verificar quais têm manutenção registrada.
+
+# trigger
+
+3. Triggers
+
+a) Trigger de valor total do pagamento:
+Motivo: Antes de inserir um pagamento, copia automaticamente o valor do aluguel correspondente para a coluna `valor` do pagamento.
+
+b) Trigger de valor total do aluguel:
+Motivo: Antes de inserir um aluguel, calcula automaticamente o `valor_total` multiplicando `valor_diaria` do veículo pelo número de dias do aluguel.
+
+c) Trigger de atualização do valor do aluguel:
+Motivo: Se as datas do aluguel forem alteradas, recalcula automaticamente o `valor_total` para refletir o novo período.
